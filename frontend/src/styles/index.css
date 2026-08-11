@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-bg: #14110f;
+  --color-bg-raised: #1c1815;
+  --color-marquee: #e8b34c;
+  --color-marquee-dim: #a67f34;
+  --color-crimson: #c1443b;
+  --color-teal: #3e6b63;
+  --color-text: #f2ede4;
+  --color-text-dim: #b8b0a3;
+  --color-border: #322c26;
+
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-marquee);
+  outline-offset: 2px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Marquee nav ---------- */
+.navbar {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--color-marquee);
+  letter-spacing: 0.08em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  color: var(--color-text-dim);
+  padding: 6px 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-marquee);
+  border-color: var(--color-marquee);
+}
+
+.btn {
+  border: 1px solid var(--color-marquee);
+  background: transparent;
+  color: var(--color-marquee);
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover { background: var(--color-marquee); color: #14110f; }
+
+.btn-solid {
+  background: var(--color-marquee);
+  color: #14110f;
+}
+.btn-solid:hover { background: var(--color-marquee-dim); }
+
+.btn-danger {
+  border-color: var(--color-crimson);
+  color: var(--color-crimson);
+}
+.btn-danger:hover { background: var(--color-crimson); color: var(--color-text); }
+
+/* ---------- Ticket-stub movie card (signature element) ---------- */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.ticket-card {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.ticket-card .poster {
+  aspect-ratio: 2 / 3;
+  background: #2a2521 url('data:image/svg+xml;utf8,') center/cover;
+  background-size: cover;
+  background-position: center;
+}
+
+.ticket-card .stub {
+  padding: 10px 12px;
+  border-top: 2px dashed var(--color-border);
+  position: relative;
+}
+
+.ticket-card .stub::before,
+.ticket-card .stub::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  width: 16px;
+  height: 16px;
+  background: var(--color-bg);
+  border-radius: 50%;
+}
+.ticket-card .stub::before { left: -8px; }
+.ticket-card .stub::after { right: -8px; }
+
+.ticket-card h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-card .meta {
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+}
+
+.status-pill {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-top: 6px;
+  background: rgba(232, 179, 76, 0.15);
+  color: var(--color-marquee);
+}
+
+/* ---------- Forms ---------- */
+input, select, textarea {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+/* ---------- Feed / list items ---------- */
+.feed-item {
+  border-left: 3px solid var(--color-marquee);
+  background: var(--color-bg-raised);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+
+.feed-item .who { font-weight: 600; color: var(--color-marquee); }
+.feed-item .when { font-size: 0.75rem; color: var(--color-text-dim); }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-dim);
+}
+
+.error-banner {
+  background: rgba(193, 68, 59, 0.15);
+  border: 1px solid var(--color-crimson);
+  color: #f0a89f;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  margin: 16px 0;
+  font-size: 0.85rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.page-header h1 { font-size: 2.2rem; color: var(--color-marquee); }
+
+.loading-strip {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-marquee), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-strip { animation: none; }
+}

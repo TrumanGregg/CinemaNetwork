@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(userId);
+    }
+
+    match /watchlistItems/{itemId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    match /reviews/{reviewId} {
+      // Reviews are readable by signed-in users (needed for the friend activity feed)
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    match /friendConnections/{connectionId} {
+      allow read: if isSignedIn() &&
+        (resource.data.userOneId == request.auth.uid || resource.data.userTwoId == request.auth.uid);
+      allow create: if isSignedIn() && request.resource.data.userOneId == request.auth.uid;
+      allow update: if isSignedIn() &&
+        (resource.data.userOneId == request.auth.uid || resource.data.userTwoId == request.auth.uid);
+    }
+  }
+}
